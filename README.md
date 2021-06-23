@@ -67,7 +67,56 @@ PaddlePaddle is installed successfully! Let's start deep learning with PaddlePad
 - Line Draft
 
 ## PaddleOCR
+### Download PaddleOCR
+```
+git clone https://github.com/PaddlePaddle/PaddleOCR.git
+```
 
+### Prepare dataset
+```
+ln -sf $PWD/data/ocr ./PaddleOCR/train_data
+```
+### download pretrained model
+```
+cd PaddleOCR/
+
+if [ ! -d "./pretrain_models/rec_mv3_none_bilstm_ctc_v2.0_train" ];then
+  # Download MobileNetV3 pretrained model
+  wget -P ./pretrain_models/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_none_bilstm_ctc_v2.0_train.tar
+  # unzip model parameters files
+  cd pretrain_models
+  tar -xf rec_mv3_none_bilstm_ctc_v2.0_train.tar && rm -rf rec_mv3_none_bilstm_ctc_v2.0_train.tar
+fi
+```
+
+### Train
+```
+cd PaddleOCR/
+
+# GPU training support single GPU and multi-GPUs, choose card with --gpus
+# Train our data, save logs to train.log in "{save_model_dir}"
+#python3 paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c configs/rec/rec_icdar15_train.yml
+
+# no GPU, set use_gpu to false in the config file
+python3 tools/train.py -c ../configs/rec_street_ch_train.yml
+```
+
+### Evaluation
+```
+cd PaddleOCR/
+
+# GPU
+#python3 paddle.distributed.launch --gpus '0' tools/eval.py -c configs/rec/rec_icdar15_train.yml -o Global.checkpoints={path/to/weights}/best_accuracy
+
+# no GPU
+python3 tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
+
+
+### Predict
+```
+python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest Global.load_static_weights=false Global.infer_img=python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest \
+ Global.load_static_weights=false Global.infer_img=train_data/ocr-sample-images/Train_000000.jpg
+```
 
 ## PaddleX
 

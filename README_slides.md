@@ -1,72 +1,54 @@
-# A Quick Guide on How to Launch AI with Paddle tools
+---
+marp: true
+theme: mytheme
+backgroundColor: orange
+headingDivider: 2
+paginate: true
+footer: 'Designed by JIANG Li @ June 2021'
+_class: lead gaia
+---
 
-[toc]
+<style scoped>
+section h1 {text-align: center;font-size: 80px;color:black;}
+</style>
+
+# A Quick Guide on How to Launch AI with Paddle tools
+#### JIANG Li
+#### Orange Labs China
+
+<!-- [toc] -->
 
 ## PaddlePaddle Ecosystem
 
 ## PaddlePaddle Use Cases
 
-## Demos
+---
 
-Demo codes for AI models implemented with [PaddlePaddle](https://github.com/PaddlePaddle/).
+## Demo Time!
+
+
+## Demos on Paddle tools
+
+Demo codes for implementing AI models with [PaddlePaddle](https://github.com/PaddlePaddle/) tools such as PaddleHub, PaddleOCR and PaddleX.
 
 ### Paddle Installation
 
 [Installation Guide](https://www.paddlepaddle.org.cn/install/quick?docurl=/documentation/docs/en/install/pip/linux-pip_en.html)
 
-#### Choose CPU/GPU
-
-Install CPU Version of PaddlePaddle if no NVIDIA® GPU.
-
-Install GPU Version with below conditions:
-
-```
-CUDA toolkit 10.1/10.2 with cuDNN v7.6.5+
-
-CUDA toolkit 11.2 with cuDNN v8.1.1
-
-Hardware devices with GPU computing power over 3.0
-```
-
-#### Installation Step
-
-You can choose the following version of PaddlePaddle to start installation:
-
-#### CPU Versoion of PaddlePaddle
 ```
 python -m pip install paddlepaddle -i https://mirror.baidu.com/pypi/simple
 ```
 
-#### GPU Version of PaddlePaddle
-
-- PaddlePaddle for CUDA 10.1 
-```
-python -m pip install paddlepaddle-gpu==2.1.0.post101 -f https://paddlepaddle.org.cn/whl/mkl/stable.html
-```
-
-- PaddlePaddle for CUDA 10.2
-```
-python -m pip install paddlepaddle-gpu -i https://mirror.baidu.com/pypi/simple
-```
-
-- PaddlePaddle for CUDA 11.2
-```
-python -m pip install paddlepaddle-gpu==2.1.0.post112 -f https://paddlepaddle.org.cn/whl/mkl/stable.html
-```
-
 #### Verify installation
-After the installation is complete, you can use python to enter the Python interpreter and then use `import paddle` and `paddle.utils.run_check()`.
 ```
 >>> import paddle
 >>> paddle.utils.run_check()
 Running verify PaddlePaddle program ... 
 .
-.
-.
 PaddlePaddle is installed successfully! Let's start deep learning with PaddlePaddle now.
 ```
 
-## Download Demo Code
+#### Download Demo Code
 ```
 git clone --recurse-submodules https://github.com/thinkall/paddle2-demo
 ```
@@ -78,10 +60,12 @@ python mask-paddlehub.py
 ```
 - Mask Detection with PaddleHub
 
-<div align="center"><img src=imgs/mask_sample.jpeg height="250"/><img src=imgs/res_mask_sample.jpeg height="250"/></div>
+<div align="center"><img src=imgs/mask_sample.jpeg width="750"/> <img src=imgs/res_mask_sample.jpeg width="750"/></div>
 
+---
 
 ### Line Draft
+
 
 
 ### OCR

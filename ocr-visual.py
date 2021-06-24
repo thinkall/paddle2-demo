@@ -13,20 +13,22 @@ def vis_save(img_path, result, save_path='result.jpg', font='simfang'):
     im_show.save(save_path)
 
 
-def ocr(img_path, lang='ch', save_path='result.jpg', font='simfang'):
+def ocr(img_path, lang='ch', save_path='result.jpg', font='simfang', det=True):
     # lang = {ch, en, french, ...}
     # Switch the language by modifying the lang parameter
     ocr = PaddleOCR(lang=lang)  # The model file will be downloaded automatically when executed for the first time
-    result = ocr.ocr(img_path, det=True)
+    result = ocr.ocr(img_path, det=det)
 
     # Recognition and detection can be performed separately through parameter control
     # result = ocr.ocr(img_path, det=False)  Only perform recognition
     # result = ocr.ocr(img_path, rec=False)  Only perform detection
     # Print detection frame and recognition result
-    for line in result:
-        print(line)
 
-    vis_save(img_path, result, save_path=save_path, font=font)
+    if det:
+        vis_save(img_path, result, save_path=save_path, font=font)
+    else:
+        for line in result:
+            print(f'\nOCR Result: {line}\n')
 
 
 if __name__ == '__main__':
@@ -35,3 +37,5 @@ if __name__ == '__main__':
 
     ocr(img_path='imgs/ocr_paris_signs.jpeg', lang='french',
         save_path='imgs/res_ocr_paris_signs.jpg', font='french')
+
+    ocr(img_path='imgs/ocr_louvre.png', lang='fr', det=False)

@@ -1,9 +1,9 @@
 paddlepaddle-gpu
 paddlehub
 paddlex
-shapely
 scikit-image
 imgaug
+shapely
 pyclipper
 lmdb
 tqdm
@@ -11,3 +11,4 @@ numpy
 visualdl
 python-Levenshtein
 opencv-contrib-python>=4.2.0.32
+PyYAML

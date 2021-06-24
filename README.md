@@ -1,4 +1,5 @@
 # paddle2-demo
+
 [toc]
 
 Demo codes for AI models implemented with [PaddlePaddle](https://github.com/PaddlePaddle/)
@@ -23,6 +24,7 @@ Hardware devices with GPU computing power over 3.0
 ```
 
 You can refer to NVIDIA official documents for installation process and configuration method of CUDA and cudnn. Please refer to CUDA，cuDNN
+
 
 ### Installation Step
 
@@ -62,9 +64,29 @@ Running verify PaddlePaddle program ...
 PaddlePaddle is installed successfully! Let's start deep learning with PaddlePaddle now.
 ```
 
+## Download Demo Code
+```
+git clone --recurse-submodules https://github.com/thinkall/paddle2-demo
+```
+
 ## PaddleHub
-- Mask Detection
-- Line Draft
+### Mask Detection
+
+
+### Line Draft
+
+
+
+### OCR
+```
+python ocr-paddlehub.py
+```
+
+- paddlehub ocr module VS [i2OCR Free French OCR](https://www.i2ocr.com/free-online-french-ocr)
+<center class="half"><img src=imgs/res_ocr_airport_multilang.jpg height="300"/><img src=imgs/res_i2ocr_airport_multilang_ch.png width="800"/></center>
+
+<center class="half"><img src=imgs/res_ocr_paris_signs.jpg height="300"/><img src=imgs/res_i2ocr_paris_signs.png width="800"/></center> 
+
 
 ## PaddleOCR
 ### Download PaddleOCR
@@ -82,10 +104,10 @@ cd PaddleOCR/
 
 if [ ! -d "./pretrain_models/rec_mv3_none_bilstm_ctc_v2.0_train" ];then
   # Download MobileNetV3 pretrained model
-  wget -P ./pretrain_models/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/en/rec_mv3_none_bilstm_ctc_v2.0_train.tar
+  wget -P ./pretrain_models/ https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_rec_pre.tar
   # unzip model parameters files
   cd pretrain_models
-  tar -xf rec_mv3_none_bilstm_ctc_v2.0_train.tar && rm -rf rec_mv3_none_bilstm_ctc_v2.0_train.tar
+  tar -xf ch_ppocr_mobile_v2.0_rec_pre.tar && rm -rf ch_ppocr_mobile_v2.0_rec_pre.tar
 fi
 ```
 
@@ -95,24 +117,26 @@ cd PaddleOCR/
 
 # GPU training support single GPU and multi-GPUs, choose card with --gpus
 # Train our data, save logs to train.log in "{save_model_dir}"
-#python3 paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c configs/rec/rec_icdar15_train.yml
+python3 -m paddle.distributed.launch --gpus '0,1,2,3'  tools/train.py -c ../configs/rec_street_ch_train.yml
 
 # no GPU, set use_gpu to false in the config file
 python3 tools/train.py -c ../configs/rec_street_ch_train.yml
 ```
 
 ### Evaluation
+
 ```
 cd PaddleOCR/
 
 # GPU
-#python3 paddle.distributed.launch --gpus '0' tools/eval.py -c configs/rec/rec_icdar15_train.yml -o Global.checkpoints={path/to/weights}/best_accuracy
+python3 -m paddle.distributed.launch --gpus '0' tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
 
 # no GPU
 python3 tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
-
+```
 
 ### Predict
+
 ```
 python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest Global.load_static_weights=false Global.infer_img=python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest \
  Global.load_static_weights=false Global.infer_img=train_data/ocr-sample-images/Train_000000.jpg

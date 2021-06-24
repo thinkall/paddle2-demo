@@ -8,8 +8,8 @@ Global:
   # evaluation is run every 5000 iterations after the 4000th iteration
   eval_batch_step: [0, 2000]
   cal_metric_during_train: True
-  pretrained_model:
-  checkpoints:
+  pretrained_model: pretrain_models/ch_ppocr_mobile_v2.0_rec_pre/best_accuracy
+  checkpoints: output/rec_chinese_lite_v2.0/latest
   save_inference_dir:
   use_visualdl: False
   infer_img: doc/imgs_words/ch/word_1.jpg

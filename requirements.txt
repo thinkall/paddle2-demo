@@ -1,6 +1,5 @@
 paddlepaddle-gpu
 paddlehub
-paddlex
 scikit-image
 imgaug
 shapely

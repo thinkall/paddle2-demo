@@ -39,3 +39,7 @@ if __name__ == '__main__':
         save_path='imgs/res_ocr_paris_signs.jpg', font='french')
 
     ocr(img_path='imgs/ocr_louvre.png', lang='fr', det=False)
+
+    ocr(img_path='imgs/no.png', lang='ch', det=False)
+
+    ocr(img_path='imgs/meter.png', lang='ch', det=True)

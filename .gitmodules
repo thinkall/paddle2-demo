@@ -2,3 +2,6 @@
 	path = PaddleOCR
 	url = https://github.com/PaddlePaddle/PaddleOCR.git
 	branch = release/2.1
+[submodule "PaddleGAN"]
+	path = PaddleGAN
+	url = https://github.com/PaddlePaddle/PaddleGAN

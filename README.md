@@ -152,4 +152,4 @@ python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretr
 ```
 
 ## PaddleX
-
+Need CUDA and cuDNN

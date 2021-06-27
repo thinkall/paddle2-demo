@@ -1,5 +1,15 @@
+import gradio as gr
+import base64
+import json
+import cv2
+import requests
+import numpy as np
+
 from PaddleOCR import PaddleOCR, draw_ocr
 from PIL import Image
+
+
+title = "AI Demo - OCR"
 
 
 def vis_save(img_path, result, save_path='result.jpg', font='simfang'):
@@ -31,14 +41,40 @@ def ocr(img_path, lang='ch', save_path='result.jpg', font='simfang', det=True):
             print(f'\nOCR Result: {line}\n')
 
 
+def ocr_gradio(img, lang):
+    img_path = 'flagged/ocr_tmp.jpg'
+    out_path = 'flagged/ocr_res.jpg'
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+    cv2.imwrite(img_path, img)
+    font = 'french' if lang == 'french' else 'simfang'
+    ocr(img_path, lang=lang, save_path=out_path, font=font)
+    img = cv2.imread(out_path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    return img
+
+
+inputs = [
+    gr.inputs.Image(label="image for ocr"),
+    gr.inputs.Radio(['ch', 'en', 'french'], default='ch', label="language for ocr")
+]
+
+outputs = [gr.outputs.Image(label="OCR")]
+
+examples = [['imgs/ocr_airport_multilang.jpeg'],
+            ['imgs/ocr_paris_signs.jpeg'],
+            ['imgs/ocr_menu.png']]
+
+fns = [ocr_gradio]
+iface = gr.Interface(
+    fn=fns,
+    inputs=inputs,
+    outputs=outputs,
+    title=title,
+    examples=examples,
+    allow_screenshot=True,
+    allow_flagging=True
+)
+
+
 if __name__ == '__main__':
-    ocr(img_path='imgs/ocr_airport_multilang.jpeg', lang='ch',
-        save_path='imgs/res_ocr_airport_multilang.jpg', font='simfang')
-
-    ocr(img_path='imgs/ocr_paris_signs.jpeg', lang='french',
-        save_path='imgs/res_ocr_paris_signs.jpg', font='french')
-
-    ocr(img_path='imgs/ocr_louvre.png', lang='french', det=False)
-
-    ocr(img_path='imgs/ocr_menu.png', lang='french',
-        save_path='imgs/res_ocr_menu.png', font='french')
+    iface.launch(debug=True, share=True)

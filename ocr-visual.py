@@ -38,7 +38,7 @@ if __name__ == '__main__':
     ocr(img_path='imgs/ocr_paris_signs.jpeg', lang='french',
         save_path='imgs/res_ocr_paris_signs.jpg', font='french')
 
-    ocr(img_path='imgs/ocr_louvre.png', lang='french', det=False)
-
     ocr(img_path='imgs/ocr_menu.png', lang='french',
         save_path='imgs/res_ocr_menu.png', font='french')
+
+    ocr(img_path='imgs/ocr_louvre.png', lang='french', det=False)

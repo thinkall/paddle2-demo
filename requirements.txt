@@ -11,3 +11,4 @@ visualdl
 python-Levenshtein
 opencv-contrib-python>=4.2.0.32
 PyYAML
+gradio

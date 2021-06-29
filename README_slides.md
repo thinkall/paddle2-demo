@@ -18,6 +18,24 @@ section h1 {text-align: center;font-size: 80px;color:black;}
 
 #### Orange Labs China
 
+## Contents
+
+### PaddlePaddle Introduction
+
+- PaddlePaddle Ecosystem
+
+- PaddlePaddle Industrial Cases
+
+- PaddlePaddle Tools and Pretrained Models
+
+### Hands on Demo
+
+- PaddleHub
+
+- PaddleOCR pretrained models
+
+- PaddleOCR training new models
+
 ## PaddlePaddle Ecosystem
 
 Baidu's [PaddlePaddle](https://github.com/paddlepaddle/paddle) is the first open-source deep-learning platform in China. Since 2016, it has been used by more than 2.3 million developers.
@@ -182,11 +200,11 @@ python gradio-demo.py  # for online service
 
 ## PaddleOCR Model Training
 
-### Download PaddleOCR
+<!-- ### Download PaddleOCR
 
 ```
 git clone https://github.com/PaddlePaddle/PaddleOCR.git
-```
+``` -->
 
 ### Prepare dataset
 ```
@@ -265,4 +283,4 @@ footer{color:black;font-size: 20px;}
 <!-- _class: lead gaia -->
 
 ### Thank You
-#### Li Jiang
+#### JIANG Li

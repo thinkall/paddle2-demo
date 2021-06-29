@@ -2,13 +2,9 @@
 
 [toc]
 
-## PaddlePaddle Ecosystem
-
-## PaddlePaddle Use Cases
-
-## Demos
-
 Demo codes for AI models implemented with [PaddlePaddle](https://github.com/PaddlePaddle/).
+
+## Preparation
 
 ### Paddle Installation
 
@@ -66,47 +62,67 @@ Running verify PaddlePaddle program ...
 PaddlePaddle is installed successfully! Let's start deep learning with PaddlePaddle now.
 ```
 
-## Download Demo Code
+### Download Demo Code
 ```
 git clone --recurse-submodules https://github.com/thinkall/paddle2-demo
 ```
 
+### Install requirements
+```
+pip install -r requirements.txt
+```
+
 ## PaddleHub
 ### Mask Detection
+
 ```
-python mask-paddlehub.py
+python hub_mask.py
 ```
+
 - Mask Detection with PaddleHub
 
-<div align="center"><img src=imgs/mask_sample.jpeg height="250"/><img src=imgs/res_mask_sample.jpeg height="250"/></div>
+<div align="center"><img src=imgs/mask_sample.jpeg width="800"/> <img src=imgs/res_mask_sample.jpeg width="800"/></div>
 
+---
 
 ### Line Draft
 
-
-### OCR
 ```
-python ocr-paddlehub.py
+python hub_line.py
+```
+
+- Line Draft Extraction with PaddleHub
+
+<div align="center"><img src=imgs/cartoon.png width="800"/> <img src=imgs/res_cartoon.png width="800"/></div>
+
+
+## PaddleOCR Pretrained Model
+
+```
+python ocr-visual.py
+python gradio-demo.py  # for online service
 ```
 
 - PaddleHub OCR VS [i2OCR Free French OCR](https://www.i2ocr.com/free-online-french-ocr)
 
-<div align="center"><img src=imgs/res_ocr_airport_multilang.jpg width="500"/><img src=imgs/res_i2ocr_airport_multilang_ch.png width="400"/></div>
+<div align="center"><img src=imgs/res_ocr_airport_multilang.jpg width="1700"/></div>
 
-<div align="center"><img src=imgs/res_ocr_paris_signs.jpg width="400"/><img src=imgs/res_i2ocr_paris_signs.png width="500"/></div>
+<div align="center"><img src=imgs/res_ocr_paris_signs.jpg width="800"/></div>
 
 
-## PaddleOCR
-### Download PaddleOCR
+- PaddleHub OCR VS [i2OCR Free French OCR](https://www.i2ocr.com/free-online-french-ocr)
 
-```
-git clone https://github.com/PaddlePaddle/PaddleOCR.git
-```
+![bg fit](imgs/res_i2ocr_airport_multilang_ch.png)
+![bg fit](imgs/res_i2ocr_paris_signs.png)
+
+
+## PaddleOCR Model Training
 
 ### Prepare dataset
 ```
 ln -sf $PWD/data/ocr ./PaddleOCR/train_data
 ```
+
 ### download pretrained model
 ```
 cd PaddleOCR/
@@ -138,7 +154,8 @@ python3 tools/train.py -c ../configs/rec_street_ch_train.yml
 cd PaddleOCR/
 
 # GPU
-python3 -m paddle.distributed.launch --gpus '0' tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
+python3 -m paddle.distributed.launch --gpus '0' tools/eval.py -c ../configs/rec_street_ch_train.yml \
+-o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
 
 # no GPU
 python3 tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoints=./output/rec_chinese_lite_v2.0/latest
@@ -147,9 +164,10 @@ python3 tools/eval.py -c ../configs/rec_street_ch_train.yml -o Global.checkpoint
 ### Predict
 
 ```
-python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest Global.load_static_weights=false Global.infer_img=python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml -o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest \
- Global.load_static_weights=false Global.infer_img=train_data/ocr-sample-images/Train_000000.jpg
+python3 tools/infer_rec.py -c ../configs/rec_street_ch_train.yml \
+-o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest \
+Global.load_static_weights=false Global.infer_img=python3 tools/infer_rec.py \
+-c ../configs/rec_street_ch_train.yml \
+-o Global.pretrained_model=./output/rec_chinese_lite_v2.0/latest \
+Global.load_static_weights=false Global.infer_img=train_data/ocr-sample-images/Train_000000.jpg
 ```
-
-## PaddleX
-Need CUDA and cuDNN
